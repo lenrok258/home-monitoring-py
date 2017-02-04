@@ -15,7 +15,7 @@ def read_pm_line(_port):
             ch2 = _port.read()
             if ch2 == b'\x4d':
                 rv += ch1 + ch2
-                rv += _port.read(38)
+                rv += _port.read(30)
                 return rv
 
 def main(): 
@@ -28,8 +28,8 @@ def main():
         cnt = cnt + 1
         print "[%d]Recieve Data" % cnt,
         print len(recv), "Bytes:",
-        tmp = recv[4:36]
-        datas = unpack('>hhhhhhhhhhhhhhhh', tmp)
+        tmp = recv[4:32]
+        datas = unpack('>hhhhhhhhhhhhhh', tmp)
         # print datas
         os.system('clear') 
         print('\n======= PMS5003ST ========\n'
@@ -45,13 +45,11 @@ def main():
               '>2.5um     : {}\n'
               '>5.0um     : {}\n'
               '>10um      : {}\n'
-              'HCHO       : {}\n'
-              'temperature: {}\n'
-              'humidity(%): {}'.format(datas[0], datas[1], datas[2],
+              'HCHO       : {}\n'.format(datas[0], datas[1], datas[2],
                                        datas[3], datas[4], datas[5],
                                        datas[6], datas[7], datas[8],
                                        datas[9], datas[10], datas[11],
-                                       datas[12]/1000.0, datas[13]/10.0, datas[14]/10.0))
+                                       datas[12]/1000.0))
         ser.flushInput()
         
         time.sleep(0.1)  
