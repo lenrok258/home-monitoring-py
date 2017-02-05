@@ -20,7 +20,7 @@ class PMS5003:
         print "Port closed"
 
     def read_data(self):
-        recv = self.read_pm_line()
+        recv = self.__read_pm_line()
         tmp = recv[4:32]
         datas = unpack('>hhhhhhhhhhhhhh', tmp)
         self.port.flushInput()
