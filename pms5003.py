@@ -14,7 +14,7 @@ class PMS5003:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        print "Opening Serial Port..."
+        print "Closing serial port..."
         if self.port != None:
             self.port.close()
         print "Port closed"

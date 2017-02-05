@@ -1,6 +1,7 @@
 import os
 import time
 
+import thingspeak
 from pms5003 import PMS5003
 
 
@@ -9,8 +10,7 @@ def main():
         while True:
             datas = pms.read_data()
             os.system('clear')
-            print('\nBytes consumed:{}\n'.format(datas));
-            print('\n======= PMS5003 ========\n'
+            print('======= PMS5003 ========\n'
                   'PM1.0(CF=1): {}\n'
                   'PM2.5(CF=1): {}\n'
                   'PM10 (CF=1): {}\n'
@@ -28,6 +28,7 @@ def main():
                                              datas[6], datas[7], datas[8],
                                              datas[9], datas[10], datas[11],
                                              datas[12] / 1000.0))
+            thingspeak.send_update(datas[3], datas[4], datas[5])
             time.sleep(0.1)
 
 
