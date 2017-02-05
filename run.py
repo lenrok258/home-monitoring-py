@@ -29,7 +29,7 @@ def main():
                                              datas[9], datas[10], datas[11],
                                              datas[12] / 1000.0))
             thingspeak.send_update(datas[3], datas[4], datas[5])
-            time.sleep(0.1)
+            time.sleep(10)
 
 
 if __name__ == '__main__':
