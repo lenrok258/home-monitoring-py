@@ -20,24 +20,21 @@ def read_pm_line(_port):
 
 def main(): 
     cnt = 0
-    # conn = sqlite3.connect('pm25.db')
-    # c = conn.cursor()
     while True:  
         recv = read_pm_line(ser)
-
         cnt = cnt + 1
         print "[%d]Recieve Data" % cnt,
         print len(recv), "Bytes:",
         tmp = recv[4:32]
         datas = unpack('>hhhhhhhhhhhhhh', tmp)
-        # print datas
         os.system('clear') 
-        print('\n======= PMS5003ST ========\n'
+        print('\nBytes consumed:{}\n'.format(datas));
+        print('\n======= PMS5003 ========\n'
               'PM1.0(CF=1): {}\n'
               'PM2.5(CF=1): {}\n'
               'PM10 (CF=1): {}\n'
               'PM1.0 (STD): {}\n'
-              'PM2.5 (STD): {}\n'
+              '\033[93mPM2.5 (STD): {}\033[0m\n'
               'PM10  (STD): {}\n'
               '>0.3um     : {}\n'
               '>0.5um     : {}\n'
