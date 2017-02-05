@@ -1,1 +1,2 @@
-.env/bin/python read.py 
+#!/usr/bin/env bash
+.env/bin/python run.py
