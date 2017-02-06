@@ -1,9 +1,12 @@
 from struct import *
 
+import RPi.GPIO as GPIO
 import serial
 
 
 class PMS5003:
+    __SET_GPIO_PIN = 0
+
     port = None
 
     def __init__(self):
@@ -36,6 +39,16 @@ class PMS5003:
                     rv += ch1 + ch2
                     rv += self.port.read(30)
                     return rv
+
+    def put_to_sleep(self):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.__SET_GPIO_PIN, GPIO.OUT)
+        GPIO.output(self.__SET_GPIO_PIN, GPIO.LOW)
+
+    def wake_up(self):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.__SET_GPIO_PIN, GPIO.OUT)
+        GPIO.output(self.__SET_GPIO_PIN, GPIO.HIGH)
 
     def __open_port(self):
         print "Opening Serial Port...",
