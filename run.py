@@ -2,7 +2,12 @@ import os
 import time
 
 import thingspeak
-from pms5003 import PMS5003
+from config.config import config
+
+if config['rpi-env']:
+    from pms5003 import PMS5003
+else:
+    from mocks.PMS5003_mock import PMS5003
 
 
 def main():

@@ -1,0 +1,7 @@
+{
+    "rpi-env": false,
+    "thingspeak": {
+        "enabled": false,
+        "write-api-key": ""
+    }
+}

@@ -52,5 +52,6 @@ class PMS5003:
 
     def __open_port(self):
         print "Opening Serial Port...",
-        return serial.Serial("/dev/ttyAMA0", baudrate=9600, timeout=2.0)
+        port = serial.Serial('/dev/ttyAMA0'(), baudrate=9600, timeout=2.0)
         print "Serial Connected"
+        return port

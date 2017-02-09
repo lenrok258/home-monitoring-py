@@ -1,3 +1,4 @@
 .env/
 .idea/
 *.pyc
+/config/config.json
