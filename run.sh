@@ -2,4 +2,4 @@
 
 cd $(dirname $0)
 
-.env/bin/python run.py
+.env/bin/python -u run.py
