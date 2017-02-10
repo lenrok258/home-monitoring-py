@@ -1,5 +1,9 @@
 {
     "rpi-env": false,
+    "pms5003": {
+        "sleep-duration-sec": 300,
+        "active-duration-sec": 30
+    },
     "thingspeak": {
         "enabled": false,
         "write-api-key": ""
