@@ -15,3 +15,7 @@ def setup(pin, mode):
 
 def output(pin, value):
     pass
+
+
+def cleanup():
+    pass

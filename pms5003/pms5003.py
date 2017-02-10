@@ -33,6 +33,8 @@ class PMS5003:
         if self.__port is not None:
             self.__port.close()
         print "Port closed"
+        print "Putting PMS to sleep"
+        self.__put_to_sleep()
 
     def read_data(self, clock_tick):
         self.__swith_on_off(clock_tick)
