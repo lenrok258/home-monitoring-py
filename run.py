@@ -1,40 +1,19 @@
 import os
 import time
 
-import thingspeak
-from config.config import config
-
-if config['rpi-env']:
-    from pms5003 import PMS5003
-else:
-    from mocks.PMS5003_mock import PMS5003
+from pms5003.pms5003 import PMS5003
 
 
 def main():
+    clock_tick = 0
     with PMS5003() as pms:
         while True:
-            datas = pms.read_data()
+            data = pms.read_data(clock_tick)
             os.system('clear')
-            print('======= PMS5003 ========\n'
-                  'PM1.0(CF=1): {}\n'
-                  'PM2.5(CF=1): {}\n'
-                  'PM10 (CF=1): {}\n'
-                  'PM1.0 (STD): {}\n'
-                  '\033[93mPM2.5 (STD): {}\033[0m\n'
-                  'PM10  (STD): {}\n'
-                  '>0.3um     : {}\n'
-                  '>0.5um     : {}\n'
-                  '>1.0um     : {}\n'
-                  '>2.5um     : {}\n'
-                  '>5.0um     : {}\n'
-                  '>10um      : {}\n'
-                  'HCHO       : {}\n'.format(datas[0], datas[1], datas[2],
-                                             datas[3], datas[4], datas[5],
-                                             datas[6], datas[7], datas[8],
-                                             datas[9], datas[10], datas[11],
-                                             datas[12] / 1000.0))
-            thingspeak.send_update(datas[3], datas[4], datas[5])
-            time.sleep(10)
+            print(data)
+            # thingspeak.send_update(data[3], data[4], data[5])
+            time.sleep(1)
+            clock_tick += 1
 
 
 if __name__ == '__main__':

@@ -1,3 +1,10 @@
+BCM = 1
+OUT = 2
+IN = 3
+HIGH = 4
+LOW = 5
+
+
 def setmode(mode):
     pass
 
