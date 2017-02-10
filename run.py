@@ -9,7 +9,6 @@ def main():
     with PMS5003() as pms:
         while True:
             data = pms.read_data(clock_tick)
-            os.system('clear')
             print(data)
             # thingspeak.send_update(data[3], data[4], data[5])
             time.sleep(1)

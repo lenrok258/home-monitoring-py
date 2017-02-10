@@ -19,7 +19,7 @@ class PMS5003:
 
     __port = None
     __prev_data = None
-    __sleeping = None
+    __sleeping = False
 
     def __init__(self):
         self.__wake_up()
@@ -46,13 +46,13 @@ class PMS5003:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.__SET_GPIO_PIN, GPIO.OUT)
         GPIO.output(self.__SET_GPIO_PIN, GPIO.LOW)
-        self.__sleeping = False
+        self.__sleeping = True
 
     def __wake_up(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.__SET_GPIO_PIN, GPIO.OUT)
         GPIO.output(self.__SET_GPIO_PIN, GPIO.HIGH)
-        self.__sleeping = True
+        self.__sleeping = False
 
     def __open_port(self):
         print "Opening Serial Port...",
