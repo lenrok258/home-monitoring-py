@@ -1,6 +1,6 @@
-import os
 import time
 
+import thingspeak
 from pms5003.pms5003 import PMS5003
 
 
@@ -8,9 +8,11 @@ def main():
     clock_tick = 0
     with PMS5003() as pms:
         while True:
-            data = pms.read_data(clock_tick)
-            print(data)
-            # thingspeak.send_update(data[3], data[4], data[5])
+            pms_data = pms.read_data(clock_tick)
+            print(pms_data)
+
+            thingspeak.send_update(clock_tick, pms_data)
+
             time.sleep(1)
             clock_tick += 1
 

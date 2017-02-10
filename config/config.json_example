@@ -6,6 +6,7 @@
     },
     "thingspeak": {
         "enabled": false,
-        "write-api-key": ""
+        "write-api-key": "",
+        "requests-interval-sec": 30
     }
 }

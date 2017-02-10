@@ -67,7 +67,7 @@ class PMS5003:
             self.__wake_up()
         elif clock_tick % cycle_duration == self.__ACTIVE_DURATION_S:
             print "Putting to sleep. Clock tick: {}".format(clock_tick)
-            self.__wake_up()
+            self.__put_to_sleep()
 
     def __read_data_from_sensor(self):
         data = self.__read_pm_line()
@@ -86,4 +86,4 @@ class PMS5003:
                     rv += self.__port.read(30)
                     line = rv[4:32]
                     data = unpack('>hhhhhhhhhhhhhh', line)
-                    return pms5003_data.PMS5003Data(data)
+                    return pms5003_data.PMS5003Data(data, self.__sleeping)
