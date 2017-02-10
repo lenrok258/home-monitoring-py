@@ -13,7 +13,7 @@ import pms5003_data
 
 
 class PMS5003:
-    __SET_GPIO_PIN = 0
+    __SET_GPIO_PIN = 17
     __SLEEP_DURATION_S = config['pms5003']['sleep-duration-sec']
     __ACTIVE_DURATION_S = config['pms5003']['active-duration-sec']
 
