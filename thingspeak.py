@@ -1,4 +1,5 @@
 import requests
+import traceback
 
 from config.config import config
 
@@ -26,5 +27,9 @@ def __send_request(pms_data):
         'field1': pms_data.pm1_atm,
         'field2': pms_data.pm2_5_atm,
         'field3': pms_data.pm10_atm}
-    response = requests.post(__URL, params=params_dict)
-    print 'Request sent to thingspeak.com. Response={}'.format(response)
+    try:
+        response = requests.post(__URL, params=params_dict)
+    except Exception as e:
+        print 'Sending to thingspeak.com failed. Exception:{}'.format(e)
+    else:
+        print 'Request sent to thingspeak.com. Response={}'.format(response)
