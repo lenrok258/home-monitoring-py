@@ -8,5 +8,12 @@
         "enabled": false,
         "write-api-key": "",
         "requests-interval-sec": 30
+    },
+    "airly": {
+        "api-key": "",
+        "location": {
+            "latitude": "",
+            "longitude": ""
+        }
     }
 }
