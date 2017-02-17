@@ -17,7 +17,7 @@ class PMS5003Data:
         self.is_sleeping = is_sleeping
 
     def __str__(self):
-        return ('PMS5003: [CF=1]: PM1.0: {}, PM2.5: {}, PM10: {}, [Atmospheric]: PM1.0: {}, ' + \
+        return ('[PMS5003]: [CF=1]: PM1.0: {}, PM2.5: {}, PM10: {}, [Atmospheric]: PM1.0: {}, ' + \
                 '\033[93mPM2.5: {}\033[0m, PM10: {}, isSleeping={}') \
             .format(self.pm1_std, self.pm2_5_std, self.pm10_std, self.pm1_atm,
                     self.pm2_5_atm, self.pm10_atm, self.is_sleeping)

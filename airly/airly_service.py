@@ -1,5 +1,6 @@
 import requests
 
+import airly_data
 from config.config import config
 
 
@@ -17,8 +18,10 @@ class AirMeasurements:
         self.api_key = config['airly']['api-key']
 
     def read(self):
-        return requests.get(self.url, headers={self.__API_KEY_HEADER_NAME: self.api_key})
+        response = requests.get(self.url, headers={self.__API_KEY_HEADER_NAME: self.api_key})
+        result_dict = response.json()
+        return airly_data.map_to_airly_result(result_dict)
 
 
 if __name__ == '__main__':
-    print AirMeasurements().read().text
+    print AirMeasurements().read()
