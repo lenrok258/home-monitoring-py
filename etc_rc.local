@@ -1,0 +1,2 @@
+# Example:
+{path}/home-monitoring/run.sh > {path}/home-monitoring/log.txt 2>&1 &
