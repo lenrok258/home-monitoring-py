@@ -2,12 +2,25 @@ import time
 
 import requests.packages.urllib3
 
-import thingspeak
 from airly.airly_service import AirMeasurements as Airly
 from dht22.dht22 import DHT22
 from pms5003.pms5003 import PMS5003
+from thingspeak import data_sender as thingspeak
 
 requests.packages.urllib3.disable_warnings()
+
+
+def prepare_fields(pms_data, airly_data, dht22_data):
+    return [
+        pms_data.pm1_atm,
+        pms_data.pm2_5_atm,
+        pms_data.pm10_atm,
+        dht22_data.humidity,
+        dht22_data.temperature,
+        airly_data.pm2_5,
+        airly_data.pm10,
+        airly_data.temperature
+    ]
 
 
 def main():
@@ -23,10 +36,11 @@ def main():
             airly_data = airly.read()
             print(airly_data)
 
-            hdt22_data = dht22.read()
-            print (hdt22_data)
+            dht22_data = dht22.read()
+            print (dht22_data)
 
-            thingspeak.send_update(clock_tick, pms_data)
+            fields = prepare_fields(pms_data, airly_data, dht22_data)
+            thingspeak.send_update(clock_tick, fields)
 
             clock_tick += 1
             print '\n----------------\n'

@@ -13,10 +13,10 @@ class AirlyResult:
     temperature = None
 
     def __init__(self, pm1, pm2_5, pm10, temperature):
-        self.pm1 = pm1
-        self.pm2_5 = pm2_5
-        self.pm10 = pm10
-        self.temperature = temperature
+        self.pm1 = int(pm1)
+        self.pm2_5 = int(pm2_5)
+        self.pm10 = int(pm10)
+        self.temperature = round(temperature, 2)
 
     def __repr__(self):
         return "[AIRLY]: PM1.0: {}, PM2.5: {}, PM10: {}, Temperature: {}".format(self.pm1, self.pm2_5, self.pm10,

@@ -1,4 +1,5 @@
 from config.config import config
+from dht22_data import DHT22Data
 
 if config['rpi-env']:
     import Adafruit_DHT as DHT22_sensor
@@ -14,4 +15,5 @@ class DHT22:
         pass
 
     def read(self):
-        return DHT22_sensor.read_retry(self.__SENSOR_TYPE, self.__RPI_GPIO_PIN)
+        data_tuple = DHT22_sensor.read_retry(self.__SENSOR_TYPE, self.__RPI_GPIO_PIN)
+        return DHT22Data(data_tuple)
