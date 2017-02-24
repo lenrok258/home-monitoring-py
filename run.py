@@ -30,21 +30,24 @@ def main():
 
     with PMS5003() as pms:
         while True:
-            pms_data = pms.read_data(clock_tick)
-            print(pms_data)
+            try:
+                pms_data = pms.read_data(clock_tick)
+                print(pms_data)
 
-            airly_data = airly.read()
-            print(airly_data)
+                airly_data = airly.read()
+                print(airly_data)
 
-            dht22_data = dht22.read()
-            print (dht22_data)
+                dht22_data = dht22.read()
+                print (dht22_data)
 
-            fields = prepare_fields(pms_data, airly_data, dht22_data)
-            thingspeak.send_update(clock_tick, fields)
+                fields = prepare_fields(pms_data, airly_data, dht22_data)
+                thingspeak.send_update(clock_tick, fields)
 
-            clock_tick += 1
-            print '\n----------------\n'
-            time.sleep(1)
+                clock_tick += 1
+                print '\n----------------\n'
+                time.sleep(1)
+            except Exception as e:
+                print "Exception cought: {}".format(e)
 
 
 if __name__ == '__main__':
