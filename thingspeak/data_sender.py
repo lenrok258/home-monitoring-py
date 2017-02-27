@@ -1,5 +1,8 @@
-from config.config import config
+import traceback
+
 import requests
+
+from config.config import config
 
 __URL = "https://api.thingspeak.com/update"
 __API_KEY = config['thingspeak']['write-api-key']
@@ -8,10 +11,14 @@ __REQUESTS_INTERVAL_SEC = config['thingspeak']['requests-interval-sec']
 
 
 def send_update(clock_tick, fields):
-    if not __IS_ENABLED or not __is_the_right_time(clock_tick):
-        return
+    try:
+        if not __IS_ENABLED or not __is_the_right_time(clock_tick):
+            return
 
-    __send_request(fields)
+        __send_request(fields)
+    except Exception as e:
+        print 'Unable to fetch data from Airly.\n Exception: {}'.format(e)
+        traceback.print_exc()
 
 
 def __is_the_right_time(clock_tick):
