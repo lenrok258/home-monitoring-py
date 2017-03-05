@@ -64,6 +64,7 @@ def main():
                 traceback.print_exc()
 
             clock_tick += 1
+            print 'Clock tick: {}'.format(clock_tick)
             print '\n----------------\n'
             time.sleep(1)
 
