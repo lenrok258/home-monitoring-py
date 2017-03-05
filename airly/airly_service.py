@@ -1,5 +1,3 @@
-import traceback
-
 import requests
 
 import airly_data
@@ -20,15 +18,9 @@ class AirMeasurements:
         self.api_key = config['airly']['api-key']
 
     def read(self):
-        try:
-            response = requests.get(self.url, headers={self.__API_KEY_HEADER_NAME: self.api_key})
-            result_dict = response.json()
-            result = airly_data.map_to_airly_result(result_dict)
-        except Exception as e:
-            print 'Unable to fetch data from Airly.\n Exception: {}'.format(e)
-            traceback.print_exc()
-
-        return result
+        response = requests.get(self.url, headers={self.__API_KEY_HEADER_NAME: self.api_key})
+        result_dict = response.json()
+        return airly_data.map_to_airly_result(result_dict)
 
 
 if __name__ == '__main__':

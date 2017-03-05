@@ -1,4 +1,3 @@
-import traceback
 from struct import *
 
 from config.config import config
@@ -38,18 +37,12 @@ class PMS5003:
         self.__put_to_sleep()
 
     def read_data(self, clock_tick):
-        try:
-            self.__swith_on_off(clock_tick)
+        self.__swith_on_off(clock_tick)
 
-            if self.__sleeping:
-                result = self.__prev_data
-            else:
-                result = self.__read_data_from_sensor()
-        except Exception as e:
-            print 'Unable to fetch data from Airly.\n Exception: {}'.format(e)
-            traceback.print_exc()
-
-        return result
+        if self.__sleeping:
+            return self.__prev_data
+        else:
+            return self.__read_data_from_sensor()
 
     def __put_to_sleep(self):
         GPIO.setmode(GPIO.BCM)

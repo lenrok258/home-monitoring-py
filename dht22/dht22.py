@@ -1,5 +1,3 @@
-import traceback
-
 from config.config import config
 from dht22_data import DHT22Data
 
@@ -17,11 +15,5 @@ class DHT22:
         pass
 
     def read(self):
-        try:
-            data_tuple = DHT22_sensor.read_retry(self.__SENSOR_TYPE, self.__RPI_GPIO_PIN)
-            result = DHT22Data(data_tuple)
-        except Exception as e:
-            print 'Unable to fetch data from DHT22.\n Exception: {}'.format(e)
-            traceback.print_exc()
-
-        return result
+        data_tuple = DHT22_sensor.read_retry(self.__SENSOR_TYPE, self.__RPI_GPIO_PIN)
+        return DHT22Data(data_tuple)
