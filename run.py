@@ -43,7 +43,7 @@ def main():
                 traceback.print_exc()
 
             try:
-                airly_data = airly.read()
+                airly_data = airly.read(clock_tick)
                 print(airly_data)
             except Exception as e:
                 print "Unable to read AIRLY data: {}".format(e)
