@@ -5,6 +5,7 @@ import requests.packages.urllib3
 
 from airly.airly_service import AirMeasurements as Airly
 from dht22.dht22 import DHT22
+from lcd import display_20x4 as lcd
 from pms5003.pms5003 import PMS5003
 from thingspeak import data_sender as thingspeak
 
@@ -63,10 +64,17 @@ def main():
                 print "Unable to send data to THINGSPEAK: {}".format(e)
                 traceback.print_exc()
 
-            clock_tick += 1
-            print 'Clock tick: {}'.format(clock_tick)
-            print '\n----------------\n'
-            time.sleep(1)
+            try:
+                lcd.display(time.ctime(), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER);
+                lcd.display(dht22_data.temperature, lcd.LINE_2, lcd.STYLE_ALIGN_LEFT)
+            except Exception as e:
+                print "Unable to display data on LCD screen: {}".format(e)
+                traceback.print_exc()
+
+        clock_tick += 1
+        print 'Clock tick: {}'.format(clock_tick)
+        print '\n----------------\n'
+        time.sleep(1)
 
 
 if __name__ == '__main__':
