@@ -2,4 +2,4 @@
 
 cd $(dirname $0)
 
-.env/bin/python -u run.py
+PYTHONDONTWRITEBYTECODE=1 .env/bin/python -u run.py
