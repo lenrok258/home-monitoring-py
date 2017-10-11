@@ -68,7 +68,9 @@ def main():
 
             try:
                 lcd.display(time.ctime(), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER)
-                lcd.display(dht22_data.temperature, lcd.LINE_2, lcd.STYLE_ALIGN_LEFT)
+                lcd.display('Temperatura: ' + str(dht22_data.temperature), lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('Wilgotnosc :' + str(dht22_data.humidity), lcd.LINE_3, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('Jakosc powietrza: ' + str(pms_data.pm2_5_std), lcd.LINE_4, lcd.STYLE_ALIGN_CENTER)
             except Exception as e:
                 print "Unable to display data on LCD screen: {}".format(e)
                 traceback.print_exc()
