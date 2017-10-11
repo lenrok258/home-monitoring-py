@@ -45,12 +45,12 @@ def main():
                 logger.error("Unable to read PMS data: {}".format(e))
                 traceback.print_exc()
 
-            try:
-                airly_data = airly.read(clock_tick)
-                logger.info(airly_data)
-            except Exception as e:
-                logger.error("Unable to read AIRLY data: {}".format(e))
-                traceback.print_exc()
+            # try:
+            #     airly_data = airly.read(clock_tick)
+            #     logger.info(airly_data)
+            # except Exception as e:
+            #     logger.error("Unable to read AIRLY data: {}".format(e))
+            #     traceback.print_exc()
 
             try:
                 dht22_data = dht22.read()
@@ -66,12 +66,12 @@ def main():
                 logger.error("Unable to send data to THINGSPEAK: {}".format(e))
                 traceback.print_exc()
 
-            # try:
-            #     lcd.display(time.ctime(), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER);
-            #     lcd.display(dht22_data.temperature, lcd.LINE_2, lcd.STYLE_ALIGN_LEFT)
-            # except Exception as e:
-            #     print "Unable to display data on LCD screen: {}".format(e)
-            #     traceback.print_exc()
+            try:
+                lcd.display(time.ctime(), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER)
+                lcd.display(dht22_data.temperature, lcd.LINE_2, lcd.STYLE_ALIGN_LEFT)
+            except Exception as e:
+                print "Unable to display data on LCD screen: {}".format(e)
+                traceback.print_exc()
 
             clock_tick += 1
             logger.info('Clock tick: {}'.format(clock_tick))

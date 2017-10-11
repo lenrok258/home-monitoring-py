@@ -1,11 +1,14 @@
 import time
 
 from config.config import config
+from logger import Logger
 
 if config['rpi-env']:
     import RPi.GPIO as GPIO
 else:
     import mocks.GPIO_mock as GPIO
+
+__logger = Logger('lcd')
 
 # Define GPIO to LCD mapping
 __LCD_RS = 21
@@ -37,6 +40,8 @@ STYLE_ALIGN_RIGHT = 3
 
 
 def display(text, line, style):
+    text = str(text)
+    __logger.info('LINE {0}: {1}'.format(line, text))
     __lcd_string(text, __LCD_LINE_ADDRESSES_LIST[line], style)
 
 
@@ -125,10 +130,6 @@ def __lcd_string(message, line, style):
 
     for i in range(__LCD_WIDTH):
         __lcd_byte(ord(message[i]), __LCD_CHR)
-
-        # def lcd_backlight(flag):
-        # Toggle backlight on-off-on
-        # GPIO.output(LED_ON, flag)
 
 
 # if __name__ == '__main__':
