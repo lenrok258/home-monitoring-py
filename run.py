@@ -1,5 +1,6 @@
 import time
 import traceback
+import locale
 
 import requests.packages.urllib3
 
@@ -11,7 +12,7 @@ from thingspeak import data_sender as thingspeak
 from logger import Logger
 
 requests.packages.urllib3.disable_warnings()
-
+locale.setlocale(locale.LC_TIME, 'pl_PL.utf8')
 
 def prepare_fields(pms_data, airly_data, dht22_data):
     return [
@@ -67,10 +68,10 @@ def main():
                 traceback.print_exc()
 
             try:
-                lcd.display(time.ctime(), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER)
-                lcd.display('Temperatura: ' + str(dht22_data.temperature), lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
-                lcd.display('Wilgotnosc :' + str(dht22_data.humidity), lcd.LINE_3, lcd.STYLE_ALIGN_CENTER)
-                lcd.display('Jakosc powietrza: ' + str(pms_data.pm2_5_std), lcd.LINE_4, lcd.STYLE_ALIGN_CENTER)
+                lcd.display(time.strftime("%d %B, %H:%M"), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('Temperatura: ' + str(dht22_data.temperature) + " *C", lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('Wilgotnosc: ' + str(dht22_data.humidity) + " %", lcd.LINE_3, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('Zapylenie (PM2.5): ' + str(pms_data.pm2_5_std) + " mg/dm3", lcd.LINE_4, lcd.STYLE_ALIGN_CENTER)
             except Exception as e:
                 print "Unable to display data on LCD screen: {}".format(e)
                 traceback.print_exc()
