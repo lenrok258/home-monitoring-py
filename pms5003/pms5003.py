@@ -1,6 +1,7 @@
 from struct import *
 
 from config.config import config
+from logger import Logger
 
 if config['rpi-env']:
     import serial
@@ -16,6 +17,7 @@ class PMS5003:
     __SET_GPIO_PIN = 17
     __SLEEP_DURATION_S = config['pms5003']['sleep-duration-sec']
     __ACTIVE_DURATION_S = config['pms5003']['active-duration-sec']
+    __logger = Logger('pms5003')
 
     __port = None
     __prev_data = None
@@ -29,11 +31,11 @@ class PMS5003:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        print "Closing serial port..."
+        self.__logger.info("Closing serial port...")
         if self.__port is not None:
             self.__port.close()
-        print "Port closed"
-        print "Putting PMS to sleep"
+        self.__logger.info("Port closed")
+        self.__logger.info("Putting PMS to sleep")
         self.__put_to_sleep()
 
     def read_data(self, clock_tick):
@@ -57,18 +59,18 @@ class PMS5003:
         self.__sleeping = False
 
     def __open_port(self):
-        print "Opening Serial Port...",
+        self.__logger.info("Opening Serial Port...")
         port = serial.Serial('/dev/ttyAMA0', baudrate=9600, timeout=2.0)
-        print "Serial Connected"
+        self.__logger.info("Serial Connected")
         return port
 
     def __swith_on_off(self, clock_tick):
         cycle_duration = self.__SLEEP_DURATION_S + self.__ACTIVE_DURATION_S
         if clock_tick % cycle_duration == 0:
-            print "Waking up. Clock tick: {}".format(clock_tick)
+            self.__logger.info("Waking up. Clock tick: {}".format(clock_tick))
             self.__wake_up()
         elif clock_tick % cycle_duration == self.__ACTIVE_DURATION_S:
-            print "Putting to sleep. Clock tick: {}".format(clock_tick)
+            self.__logger.info("Putting to sleep. Clock tick: {}".format(clock_tick))
             self.__put_to_sleep()
 
     def __read_data_from_sensor(self):

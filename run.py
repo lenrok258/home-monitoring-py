@@ -8,6 +8,7 @@ from dht22.dht22 import DHT22
 from lcd import display_20x4 as lcd
 from pms5003.pms5003 import PMS5003
 from thingspeak import data_sender as thingspeak
+from logger import Logger
 
 requests.packages.urllib3.disable_warnings()
 
@@ -26,6 +27,7 @@ def prepare_fields(pms_data, airly_data, dht22_data):
 
 
 def main():
+    logger = Logger('main')
     clock_tick = 0
     airly = Airly()
     dht22 = DHT22()
@@ -38,43 +40,43 @@ def main():
 
             try:
                 pms_data = pms.read_data(clock_tick)
-                print(pms_data)
+                logger.info(pms_data)
             except Exception as e:
-                print "Unable to read PMS data: {}".format(e)
+                logger.error("Unable to read PMS data: {}".format(e))
                 traceback.print_exc()
 
             try:
                 airly_data = airly.read(clock_tick)
-                print(airly_data)
+                logger.info(airly_data)
             except Exception as e:
-                print "Unable to read AIRLY data: {}".format(e)
+                logger.error("Unable to read AIRLY data: {}".format(e))
                 traceback.print_exc()
 
             try:
                 dht22_data = dht22.read()
-                print (dht22_data)
+                logger.info(dht22_data)
             except Exception as e:
-                print "Unable to read DHT22 data: {}".format(e)
+                logger.error("Unable to read DHT22 data: {}".format(e))
                 traceback.print_exc()
 
             try:
                 fields = prepare_fields(pms_data, airly_data, dht22_data)
                 thingspeak.send_update(clock_tick, fields)
             except Exception as e:
-                print "Unable to send data to THINGSPEAK: {}".format(e)
+                logger.error("Unable to send data to THINGSPEAK: {}".format(e))
                 traceback.print_exc()
 
-            try:
-                lcd.display(time.ctime(), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER);
-                lcd.display(dht22_data.temperature, lcd.LINE_2, lcd.STYLE_ALIGN_LEFT)
-            except Exception as e:
-                print "Unable to display data on LCD screen: {}".format(e)
-                traceback.print_exc()
+            # try:
+            #     lcd.display(time.ctime(), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER);
+            #     lcd.display(dht22_data.temperature, lcd.LINE_2, lcd.STYLE_ALIGN_LEFT)
+            # except Exception as e:
+            #     print "Unable to display data on LCD screen: {}".format(e)
+            #     traceback.print_exc()
 
-        clock_tick += 1
-        print 'Clock tick: {}'.format(clock_tick)
-        print '\n----------------\n'
-        time.sleep(1)
+            clock_tick += 1
+            logger.info('Clock tick: {}'.format(clock_tick))
+            print '\n----------------\n'
+            time.sleep(1)
 
 
 if __name__ == '__main__':

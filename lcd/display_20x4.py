@@ -1,6 +1,11 @@
 import time
 
-import RPi.GPIO as GPIO
+from config.config import config
+
+if config['rpi-env']:
+    import RPi.GPIO as GPIO
+else:
+    import mocks.GPIO_mock as GPIO
 
 # Define GPIO to LCD mapping
 __LCD_RS = 21

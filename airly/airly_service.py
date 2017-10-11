@@ -2,12 +2,14 @@ import requests
 
 import airly_data
 from config.config import config
+from logger import Logger
 
 
 class AirMeasurements:
     __URL_TEMPLATE = "https://airapi.airly.eu/v1/mapPoint/measurements?latitude={}&longitude={}"
     __API_KEY_HEADER_NAME = "apikey"
     __REQUESTS_INTERVAL_SEC = 60
+    __logger = Logger('airly')
 
     url = None
     api_key = None
@@ -23,7 +25,7 @@ class AirMeasurements:
         if clock_tick % self.__REQUESTS_INTERVAL_SEC != 0:
             return self.previous
 
-        print "Sending request to AIRLY"
+        self.__logger.info("Sending request to AIRLY")
         response = requests.get(self.url, headers={self.__API_KEY_HEADER_NAME: self.api_key})
         result_dict = response.json()
         result = airly_data.map_to_airly_result(result_dict)
