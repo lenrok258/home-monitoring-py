@@ -11,5 +11,3 @@ kill $(ps aux | grep -v "grep" | grep "run.py" | awk '{print $2}') | tee -a ${LO
 
 log "About to run <<home monitoring>>"
 ./run.sh &
-
- 
