@@ -67,10 +67,11 @@ def main():
                 traceback.print_exc()
 
             try:
-                lcd.display(time.strftime("%d %b, %H:%M"), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER)
-                lcd.display(str(dht22_data.temperature) + "*C | " + str(dht22_data.humidity) + "%", lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
-                lcd.display('PM2.5: ' + str(pms_data.pm2_5_atm) + "mg/dm3", lcd.LINE_3, lcd.STYLE_ALIGN_CENTER)
-                lcd.display('PM10: ' + str(pms_data.pm10_atm) + "mg/dm3", lcd.LINE_4, lcd.STYLE_ALIGN_CENTER)
+                lcd.display(time.strftime("%d %b, %H:%M:%S"), lcd.LINE_1, lcd.STYLE_ALIGN_CENTER)
+                # lcd.display(str(dht22_data.temperature) + "*C | " + str(dht22_data.humidity) + "%", lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('PM2.5: ' + str(pms_data.pm2_5_atm) + " / " + to_percentage(pms_data.pm2_5_atm, 25), lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('PM10: ' + str(pms_data.pm10_atm) + " / " + to_percentage(pms_data.pm10_atm, 50), lcd.LINE_3, lcd.STYLE_ALIGN_CENTER)
+                lcd.display('Clock tick: ' + str(clock_tick), lcd.LINE_4, lcd.STYLE_ALIGN_LEFT)
             except Exception as e:
                 print "Unable to display data on LCD screen: {}".format(e)
                 traceback.print_exc()
@@ -79,6 +80,9 @@ def main():
             logger.info('Clock tick: {}'.format(clock_tick))
             print '\n----------------\n'
             time.sleep(1)
+
+def to_percentage(data, norm):
+    return str(int(float(data) / float(norm) * 100)) + "%"
 
 
 if __name__ == '__main__':

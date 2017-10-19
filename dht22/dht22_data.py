@@ -8,3 +8,4 @@ class DHT22Data:
 
     def __str__(self):
         return '[DHT22]: Humidity: {}%, Temperature: {}*C'.format(self.humidity, self.temperature);
+
