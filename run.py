@@ -73,6 +73,8 @@ def main():
                 lcd.display('PM10: ' + str(pms_data.pm10_atm) + " / " + to_percentage(pms_data.pm10_atm, 50), lcd.LINE_3, lcd.STYLE_ALIGN_CENTER)
                 if not pms_data.is_sleeping:
                     lcd.display('Badanie powietrza...', lcd.LINE_4, lcd.STYLE_ALIGN_CENTER)
+                else:
+                    lcd.display('', lcd.LINE_4, lcd.STYLE_ALIGN_CENTER)                    
             except Exception as e:
                 print "Unable to display data on LCD screen: {}".format(e)
                 traceback.print_exc()
