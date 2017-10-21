@@ -42,6 +42,7 @@ class PMS5003:
         self.__swith_on_off(clock_tick)
 
         if self.__sleeping:
+            self.__prev_data.is_sleeping = True
             return self.__prev_data
         else:
             return self.__read_data_from_sensor()
@@ -76,7 +77,7 @@ class PMS5003:
     def __read_data_from_sensor(self):
         data = self.__read_pm_line()
         self.__port.flushInput()
-        self.__prev_data = data
+        self.__prev_data = data 
         return data
 
     def __read_pm_line(self):

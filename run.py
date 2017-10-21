@@ -71,7 +71,8 @@ def main():
                 # lcd.display(str(dht22_data.temperature) + "*C | " + str(dht22_data.humidity) + "%", lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
                 lcd.display('PM2.5: ' + str(pms_data.pm2_5_atm) + " / " + to_percentage(pms_data.pm2_5_atm, 25), lcd.LINE_2, lcd.STYLE_ALIGN_CENTER)
                 lcd.display('PM10: ' + str(pms_data.pm10_atm) + " / " + to_percentage(pms_data.pm10_atm, 50), lcd.LINE_3, lcd.STYLE_ALIGN_CENTER)
-                lcd.display('Clock tick: ' + str(clock_tick), lcd.LINE_4, lcd.STYLE_ALIGN_LEFT)
+                if not pms_data.is_sleeping:
+                    lcd.display('Badanie powietrza...', lcd.LINE_4, lcd.STYLE_ALIGN_CENTER)
             except Exception as e:
                 print "Unable to display data on LCD screen: {}".format(e)
                 traceback.print_exc()
