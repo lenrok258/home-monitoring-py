@@ -52,12 +52,12 @@ def main():
             #     logger.error("Unable to read AIRLY data: {}".format(e))
             #     traceback.print_exc()
 
-            try:
-                dht22_data = dht22.read()
-                logger.info(dht22_data)
-            except Exception as e:
-                logger.error("Unable to read DHT22 data: {}".format(e))
-                traceback.print_exc()
+            # try:
+            #     dht22_data = dht22.read()
+            #     logger.info(dht22_data)
+            # except Exception as e:
+            #     logger.error("Unable to read DHT22 data: {}".format(e))
+            #     traceback.print_exc()
 
             try:
                 fields = prepare_fields(pms_data, airly_data, dht22_data)
